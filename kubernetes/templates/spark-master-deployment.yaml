@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: SPARKMASTER
+  template:
+    metadata:
+      name: spark-master-lab
+      labels:
+        app: SPARKMASTER
+    spec:
+      hostname: spark-master
+      containers:
+        - name: spark-master
+          image: docker.io/bitnami/spark:3.3.1
+          ports:
+            - containerPort: 7077
+            - containerPort: 8080
+          env:
+            - name: SPARK_MODE
+              value: "master"
+            - name: SPARK_RPC_AUTHENTICATION_ENABLED
+              value: "no"
+            - name: SPARK_RPC_ENCRYPTION_ENABLED
+              value: "no"
+            - name: SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED
+              value: "no"
+            - name: SPARK_SSL_ENABLED
+              value: "no"
+      restartPolicy: Always

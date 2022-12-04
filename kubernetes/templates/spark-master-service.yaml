@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-master-service
+  labels:
+    app: spark-master-service
+spec:
+  selector:
+    app: SPARKMASTER
+  type: NodePort
+  ports:
+    - name: spark-ui-port
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30080
+    - name: spark-port
+      protocol: TCP
+      port: 7077
+      targetPort: 7077

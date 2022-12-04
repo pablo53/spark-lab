@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: spark-worker-lab
+spec:
+  selector:
+    matchLabels:
+      app: SPARKWORKER
+  serviceName: "spark-worker"
+  replicas: 3
+  minReadySeconds: 10
+  template:
+    metadata:
+      name: spark-worker-lab
+      labels:
+        app: SPARKWORKER
+    spec:
+      terminationGracePeriodSeconds: 10
+#      hostname: spark-worker
+      containers:
+        - name: spark-worker
+          image: docker.io/bitnami/spark:3.3.1
+          ports:
+            - containerPort: 7077
+              name: spark-port
+            - containerPort: 8080
+              name: spark-ui-port
+          env:
+            - name: SPARK_MODE
+              value: "worker"
+            - name: SPARK_MASTER_URL
+              value: "spark://spark-master-service:7077"
+            - name: SPARK_WORKER_MEMORY
+              value: "1G"
+            - name: SPARK_WORKER_CORES
+              value: "2"
+            - name: SPARK_RPC_AUTHENTICATION_ENABLED
+              value: "no"
+            - name: SPARK_RPC_ENCRYPTION_ENABLED
+              value: "no"
+            - name: SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED
+              value: "no"
+            - name: SPARK_SSL_ENABLED
+              value: "no"
+      restartPolicy: Always
