@@ -15,7 +15,7 @@ Spark Laboratory Project
 
 ## Laboratory
 
-1. Run the laboratory in Kubernetes ia Helm:
+1. Run the laboratory in Kubernetes via Helm:
 
    > `./helm-install.sh`
 

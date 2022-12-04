@@ -18,3 +18,4 @@ spec:
       protocol: TCP
       port: 7077
       targetPort: 7077
+      nodePort: 30077
